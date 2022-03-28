@@ -1,0 +1,9 @@
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\bin\Debug\netcoreapp3.1\WebTestApplication5.DAL.deps.json
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\bin\Debug\netcoreapp3.1\WebTestApplication5.DAL.dll
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\bin\Debug\netcoreapp3.1\WebTestApplication5.DAL.pdb
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.csprojAssemblyReference.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.AssemblyInfoInputs.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.AssemblyInfo.cs
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.csproj.CoreCompileInputs.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.dll
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.DAL\obj\Debug\netcoreapp3.1\WebTestApplication5.DAL.pdb

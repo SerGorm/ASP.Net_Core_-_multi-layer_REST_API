@@ -1,0 +1,12 @@
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\bin\Debug\netcoreapp3.1\WebTestApplication5.DAL.dll
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.csprojAssemblyReference.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.AssemblyInfoInputs.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.AssemblyInfo.cs
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\bin\Debug\netcoreapp3.1\WebTestApplication5.BLL.deps.json
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\bin\Debug\netcoreapp3.1\WebTestApplication5.BLL.dll
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\bin\Debug\netcoreapp3.1\WebTestApplication5.BLL.pdb
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\bin\Debug\netcoreapp3.1\WebTestApplication5.DAL.pdb
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.csproj.CoreCompileInputs.cache
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.csproj.CopyComplete
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.dll
+D:\UserData2020\OneDrive\Документы\Visual Studio 2019\Projects\WebTestApplication5\WebTestApplication5.BLL\obj\Debug\netcoreapp3.1\WebTestApplication5.BLL.pdb

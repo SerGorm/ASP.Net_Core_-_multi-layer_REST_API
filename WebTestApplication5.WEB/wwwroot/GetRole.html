@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>REST API</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <a href="/index.html">Перейти к доступам</a>
+    <h2>Получить роли</h2>
+    <form name="GetRole">
+
+        <label for="usorcomp"></label>
+        <select name="usorcomp" class="usorcomp">
+            <option value="All">все</option>
+            <option value="Company">по id управляющей компании</option>
+            <option value="User">по id сотрудника</option>
+        </select>
+        <div class="hideselect">
+            <label for="selid">id: </label>
+            <input name="selid" type="number" />
+
+            <button type="submit" id="submit" class="btn-primary">Получить</button>
+        </div>
+    </form>
+    <form name="AddUpUserRoles" class="AddUpUserRoles">
+        <label for="inputroles">Новые роли: </label>
+        <input name="inputroles" type="text" />
+        <select name="uporadd">
+            <option value="Add">Добавить</option>
+            <option value="Update">Заменить</option>
+        </select>
+        <button type="submit" id="submit" class="btn-primary">Обновить</button>
+    </form>
+
+    <table class="table table-condensed table-striped">
+        <thead><tr><th>Id</th><th>Name</th><th>Название</th></tr></thead>
+        <tbody>
+        </tbody>
+    </table>
+    <form name="UpdateNewRole" class="UpdateNewRole">
+        <table class="table table-condensed table-striped">
+            <tr><th>Id</th><th>Name</th><th>Название</th><th>Доступные действия</th></tr>
+
+            <tr>
+                <td><input name="unrlid" type="number" /></td>
+                <td><input name="unrlname" type="text" /></td>
+                <td><input name="unrllocalname" type="text" /></td>
+                <td><input name="unrlactions" type="text" /></td>
+            </tr>
+
+        </table>
+        <button type="submit" id="submit" class="btn-primary">Обновить</button>
+    </form>
+    <script>
+        let selidhide;
+
+        async function GetAllRoles() {
+
+            const response = await fetch("/api/Roles", {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+
+            if (response.ok === true) {
+
+                const Roles = await response.json();
+                let rows = document.querySelector("tbody");
+
+                while (rows.rows.length > 0) {
+                    rows.deleteRow(0);
+                }
+
+                Roles.forEach(role => {
+
+                    rows.append(row(role));
+                });
+            }
+        }
+
+        async function GetRoles(obj, id) {
+
+            const response = await fetch("/api/Roles/" + obj + "/" + id, {
+                method: "GET",
+                headers: { "Accept": "application/json" }
+            });
+            if (response.ok === true) {
+
+
+
+                const Roles = await response.json();
+                let rows = document.querySelector("tbody");
+
+                while (rows.rows.length > 0) {
+                    rows.deleteRow(0);
+                }
+
+                Roles.forEach(role => {
+
+                    rows.append(row(role));
+
+                });
+            }
+        }
+
+        async function AddUpUserRoles(UpOrAdd, StrRoleId, UserId) {
+
+            const response = await fetch("/api/" + UpOrAdd + "/Roles/" + StrRoleId + "/User/" + UserId, {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" }
+            });
+            if (response.ok === true) {
+
+
+                GetRoles("User", UserId);
+            }
+        }
+
+        async function AddUpRoles(strid, name, localName, actions) {
+
+            let id = parseInt(strid);
+            if (isNaN(id)) id = 0;
+            const response = await fetch("/api/Update/Role/" + actions, {
+                method: "POST",
+                headers: { "Accept": "application/json", "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    id: id,
+                    name: name,
+                    localName: localName
+                })
+            });
+            if (response.ok === true) {
+
+
+                GetAllRoles();;
+            }
+        }
+
+        async function DeleteUserRole(UserId, RoleId) {
+
+            const response = await fetch("/api/Delete/User/" + UserId + "/Role/" + RoleId, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            alert(await response.json());
+            GetRoles("User", UserId);
+
+        }
+
+        async function DeleteRole(id) {
+
+            const response = await fetch("/api/Delete/Role/" + id, {
+                method: "DELETE",
+                headers: { "Accept": "application/json" }
+            });
+            alert("Роль удалена");
+            GetAllRoles();
+
+        }
+
+        function row(obj) {
+
+            const tr = document.createElement("tr");
+            tr.setAttribute("data-rowid", obj.id);
+
+            const idTd = document.createElement("td");
+            idTd.append(obj.id);
+            tr.append(idTd);
+
+            const nameTd = document.createElement("td");
+            nameTd.append(obj.name);
+            tr.append(nameTd);
+
+            const localNameTd = document.createElement("td");
+            localNameTd.append(obj.localName);
+            tr.append(localNameTd);
+
+
+            return tr;
+        }
+
+        document.querySelector(".AddUpUserRoles").hidden = true;
+        document.querySelector(".hideselect").hidden = true;
+        document.querySelector(".UpdateNewRole").hidden = false;
+        document.querySelector(".usorcomp").addEventListener("change", function () {
+            //document.querySelector(".AddUpUserRoles").hidden = !document.querySelector(".AddUpUserRoles").hidden;
+
+            let rows = document.querySelector("tbody");
+
+            while (rows.rows.length > 0) {
+                rows.deleteRow(0);
+            }
+
+            if (document.querySelector(".usorcomp").value == "All") {
+                document.querySelector(".AddUpUserRoles").hidden = true;
+                document.querySelector(".hideselect").hidden = true;
+                document.querySelector(".UpdateNewRole").hidden = false;
+                GetAllRoles()
+            } else if (document.querySelector(".usorcomp").value == "User") {
+                document.querySelector(".AddUpUserRoles").hidden = false;
+                document.querySelector(".hideselect").hidden = false;
+                document.querySelector(".UpdateNewRole").hidden = true;
+            } else {
+                document.querySelector(".AddUpUserRoles").hidden = true;
+                document.querySelector(".hideselect").hidden = false;
+                document.querySelector(".UpdateNewRole").hidden = true;
+            }
+
+
+        });
+
+        document.forms["GetRole"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["GetRole"];
+            const usorcomp = form.elements["usorcomp"].value;
+            const selid = form.elements["selid"].value;
+            selidhide = selid;
+            GetRoles(usorcomp, selid);
+        });
+
+        document.forms["AddUpUserRoles"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["AddUpUserRoles"];
+            //const form1 = document.forms["GetRole"];
+            //const selid = form1.elements["selid"].value;
+            const uporadd = form.elements["uporadd"].value;
+            const inputroles = form.elements["inputroles"].value;
+            AddUpUserRoles(uporadd, inputroles, selidhide);
+        });
+
+        document.forms["UpdateNewRole"].addEventListener("submit", e => {
+            e.preventDefault();
+            const form = document.forms["UpdateNewRole"];
+            const unrlid = form.elements["unrlid"].value;
+            const unrlname = form.elements["unrlname"].value;
+            const unrllocalname = form.elements["unrllocalname"].value;
+            const unrlactions = form.elements["unrlactions"].value;
+            AddUpRoles(unrlid, unrlname, unrllocalname, unrlactions);
+        });
+
+        document.querySelector("tbody").onclick = (event) => {
+            let cell = event.target;
+            if (cell.tagName.toLowerCase() != "td") return;
+            let RoleId = cell.parentNode.children[0].innerHTML;
+            if (document.forms["GetRole"].elements["usorcomp"].value == "User") {
+
+                if (confirm("Удалить выбранную роль у текущего пользователя?")) {
+                    DeleteUserRole(selidhide, RoleId);
+                }
+
+            }
+
+            if (document.forms["GetRole"].elements["usorcomp"].value == "All") {
+
+                if (confirm("Удалить выбранную роль из базы данных?")) {
+                    DeleteRole(RoleId);
+                }
+
+            }
+
+        }
+
+        GetAllRoles()
+
+    </script>
+</body>
+</html>

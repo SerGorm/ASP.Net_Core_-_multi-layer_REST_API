@@ -1,0 +1,140 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>REST API</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.0/css/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <a href="/GetRole.html">Перейти к ролям</a>
+    <h2>Получить действия</h2>
+
+    <form name="GetAllActions">
+        <button type="submit" id="submit" class="btn-primary">Все действия</button>
+    </form>
+    <form name="GetUserActions">
+        <label for="selid">по id сотрудника:</label>
+        <input name="selid" type="number" />
+        <button type="submit" id="submit" class="btn-primary">Получить</button>
+    </form>
+
+    <h2>Результат</h2>
+    <table class="table table-condensed table-striped">
+        <thead><tr><th>Id</th><th>Name</th><th>Название</th></tr></thead>
+        <tbody>
+        </tbody>
+    </table>
+    <script>
+
+            async function GetAllActions() {
+
+                const response = await fetch("/api/Actions", {
+                    method: "GET",
+                    headers: { "Accept": "application/json" }
+                });
+
+                if (response.ok === true) {
+
+                    const Acts = await response.json();
+                    let rows = document.querySelector("tbody");
+
+                    while (rows.rows.length > 0) {
+                        rows.deleteRow(0);
+                    }
+
+                    Acts.forEach(act => {
+
+                        rows.append(row(act));
+                    });
+                }
+            }
+
+            async function GetUserActions(id) {
+
+                const response = await fetch("/api/Actions/User/" + id, {
+                    method: "GET",
+                    headers: { "Accept": "application/json" }
+                });
+                if (response.ok === true) {
+
+
+
+                    const Acts = await response.json();
+                    let rows = document.querySelector("tbody");
+
+                    while (rows.rows.length > 0) {
+                        rows.deleteRow(0);
+                    }
+
+                    Acts.forEach(act => {
+
+                        rows.append(row(act));
+
+                    });
+                }
+            }
+
+            async function CheckUserAction(UserId, ActionId) {
+
+                const response = await fetch("/api/Check/User/" + UserId + "/Action/" + ActionId, {
+                    method: "GET",
+                    headers: { "Accept": "application/json" }
+                });
+                alert(await response.json());
+            }
+
+            function row(obj) {
+
+                const tr = document.createElement("tr");
+                tr.setAttribute("data-rowid", obj.id);
+
+                const idTd = document.createElement("td");
+                idTd.append(obj.id);
+                tr.append(idTd);
+
+                const nameTd = document.createElement("td");
+                nameTd.append(obj.name);
+                tr.append(nameTd);
+
+                const localNameTd = document.createElement("td");
+                localNameTd.append(obj.localName);
+                tr.append(localNameTd);
+
+
+                return tr;
+            }
+
+            GetAllActions();
+
+            document.forms["GetAllActions"].addEventListener("submit", e => {
+                e.preventDefault();
+                GetAllActions();
+            });
+
+            document.forms["GetUserActions"].addEventListener("submit", e => {
+                e.preventDefault();
+                const form = document.forms["GetUserActions"];
+                const selid = form.elements["selid"].value;
+                GetUserActions(selid);
+            });
+
+
+            /*[].forEach.call(document.getElementsByTagName("tr"), function (elem) {
+                elem.addEventListener("click", function (el) {
+                    alert(this.children[0].innerHTML);
+                })
+            });*/
+
+            document.querySelector("tbody").onclick = (event) => {
+                let cell = event.target;
+                if (cell.tagName.toLowerCase() != "td") return;
+                let ActionId = cell.parentNode.children[0].innerHTML;
+                let UserId = parseInt(prompt("Введите id пользователя для проверки наличия у него выбранного доступа"));
+                CheckUserAction(UserId, ActionId);
+
+            }
+
+    </script>
+</body>
+</html>
